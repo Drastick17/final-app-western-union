@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { postTransactions } from '../api';
 
 const TransactionForm = () => {
   const navigate = useNavigate();
@@ -39,42 +40,14 @@ const TransactionForm = () => {
   };
 
   // Manejar el botón de "Continuar"
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (!isFormComplete()) {
       alert('Por favor, complete todos los campos.');
       return;
     }
-
-    if (paymentMethod === 'Paypal') {
-      // Inicializar PayPal
-      window.paypal
-        .Buttons({
-          createOrder: (data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: formData['Monto de Transacción'], // Monto del formulario
-                  },
-                },
-              ],
-            });
-          },
-          onApprove: (data, actions) => {
-            return actions.order.capture().then((details) => {
-              alert(`Transacción completada por ${details.payer.name.given_name}`);
-              navigate('/'); // Redirigir al inicio después de la transacción
-            });
-          },
-          onError: (err) => {
-            console.error('Error en la transacción:', err);
-            alert('Ocurrió un error durante la transacción. Inténtelo de nuevo.');
-          },
-        })
-        .render('#paypal-button-container');
-    } else {
-      alert('Método de pago no implementado aún.');
-    }
+    const {data} = await postTransactions(formData)
+    alert(data.mensaje ?? "Transacción fallida")
+    navigate('/')
   };
 
   return (

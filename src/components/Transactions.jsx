@@ -4,7 +4,7 @@ const Transactions = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div style={{"display": "flex", "flexDirection": "column"}}>
       <h2>Transacciones</h2>
       <p>Realiza Aquí Tus Transacciones</p>
       <button
@@ -21,7 +21,24 @@ const Transactions = () => {
         }}
         onClick={() => navigate('/form')}
       >
-        Agregar Transacción
+        Realizar Transacción
+      </button>
+<
+      button
+        style={{
+          marginTop: '1rem',
+          padding: '0.8rem 1.5rem',
+          border: 'none',
+          borderRadius: '8px',
+          backgroundColor: '#229900',
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: '1rem',
+          cursor: 'pointer',
+        }}
+        onClick={() => navigate('/transferencias')}
+      >
+        Ver Transacciones
       </button>
     </div>
   );

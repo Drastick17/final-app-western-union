@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Transactions from './components/Transactions';
 import TransactionForm from './components/TransactionForm';
+import TransLista from './components/TransLista';
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
         <Route path="/" element={<Transactions />} />
         {/* Ruta para el formulario */}
         <Route path="/form" element={<TransactionForm />} />
+
+        <Route path="/transferencias" element={<TransLista/>} />
       </Routes>
     </>
   );
